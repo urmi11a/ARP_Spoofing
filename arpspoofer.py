@@ -36,6 +36,7 @@ except IndexError:
    goto(44)
 try:
  while True:
+patch-1
  try:
     arp_request(option.gateway,option.target_ip)
     arp_request(option.target_ip,option.gateway)
@@ -44,6 +45,16 @@ try:
     time.sleep(2)
  except IndexError:
     goto(48)
+
+    try:
+       arp_request(option.gateway,option.target_ip)
+       arp_request(option.target_ip,option.gateway)
+       counter = counter + 2
+       print("\rpacket >> " + str(counter),end="")
+       time.sleep(2)
+    except IndexError:
+       goto(48)
+ master
 except KeyboardInterrupt:
     return_back(option.target_ip,option.gateway)
     return_back(option.gateway,option.target_ip)
